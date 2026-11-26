@@ -1,6 +1,6 @@
 # SauceDemo Playwright QA Suite
 
-[![CI](https://github.com/parlosjr/saucedemo-playwright-qa/actions/workflows/playwright.yml/badge.svg)](https://github.com/parlosjr/saucedemo-playwright-qa/actions/workflows/playwright.yml)
+[![CI](https://github.com/Carlos-Leon98/saucedemo-playwright-qa/actions/workflows/playwright.yml/badge.svg)](https://github.com/Carlos-Leon98/saucedemo-playwright-qa/actions/workflows/playwright.yml)
 
 End-to-end and API test automation suite built with **Playwright + TypeScript**, targeting the public demo app [saucedemo.com](https://www.saucedemo.com). Built to demonstrate production-grade QA automation practices: Page Object Model, fixtures, data-driven tests, and CI on every push via GitHub Actions.
 

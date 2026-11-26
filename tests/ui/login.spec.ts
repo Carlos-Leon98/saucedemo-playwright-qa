@@ -1,20 +1,23 @@
 import { test, expect } from '../../fixtures/pages';
 import { users } from '../../fixtures/test-data';
+import { attachScreenshot } from '../../fixtures/screenshot-helper';
 
 test.describe('Login', () => {
-  test('standard user can log in successfully', async ({ page, loginPage, inventoryPage }) => {
+  test('standard user can log in successfully', async ({ page, loginPage, inventoryPage }, testInfo) => {
     await loginPage.goto();
     await loginPage.login(users.standard.username, users.standard.password);
 
     await inventoryPage.expectLoaded();
     await expect(page).toHaveURL(/inventory.html/);
+    await attachScreenshot(page, testInfo, 'inventory-after-login');
   });
 
-  test('locked out user sees an error message', async ({ loginPage }) => {
+  test('locked out user sees an error message', async ({ page, loginPage }, testInfo) => {
     await loginPage.goto();
     await loginPage.login(users.lockedOut.username, users.lockedOut.password);
 
     await loginPage.expectErrorMessage('Sorry, this user has been locked out.');
+    await attachScreenshot(page, testInfo, 'locked-out-error');
   });
 
   test('invalid credentials show an error message', async ({ loginPage }) => {

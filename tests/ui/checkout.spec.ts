@@ -1,5 +1,6 @@
 import { test, expect } from '../../fixtures/pages';
 import { users, checkoutInfo } from '../../fixtures/test-data';
+import { attachScreenshot } from '../../fixtures/screenshot-helper';
 
 test.describe('Checkout flow', () => {
   test.beforeEach(async ({ loginPage, inventoryPage }) => {
@@ -10,12 +11,14 @@ test.describe('Checkout flow', () => {
   });
 
   test('user can complete a purchase end-to-end', async ({
+    page,
     inventoryPage,
     cartPage,
     checkoutPage,
-  }) => {
+  }, testInfo) => {
     await inventoryPage.goToCart();
     await cartPage.expectItemCount(2);
+    await attachScreenshot(page, testInfo, '01-cart-with-items');
 
     await cartPage.checkout();
     await checkoutPage.fillInfo(
@@ -25,9 +28,11 @@ test.describe('Checkout flow', () => {
     );
 
     await expect(checkoutPage.summaryTotalLabel).toContainText('Total');
+    await attachScreenshot(page, testInfo, '02-order-summary');
 
     await checkoutPage.finish();
     await checkoutPage.expectOrderComplete();
+    await attachScreenshot(page, testInfo, '03-order-complete');
   });
 
   test('checkout requires all personal info fields', async ({ inventoryPage, cartPage, checkoutPage }) => {
